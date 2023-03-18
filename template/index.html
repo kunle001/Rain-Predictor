@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather|Now</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      --primary-color: #00b7c2;
+    }
+
+    section {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    section a {
+      color: #fff;
+    }
+
+    section:nth-child(1) {
+      justify-content: flex-start;
+      background: linear-gradient(#0004, #0004),
+        url(https://images.pexels.com/photos/4297438/pexels-photo-4297438.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+          no-repeat;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+
+    section:nth-child(1) .media-icons i {
+      color: var(--primary-color);
+      color: #eee;
+    }
+
+    section:nth-child(3) {
+      background-color: #ddd;
+    }
+
+    section:nth-child(2) {
+      background-color: #eee;
+      min-height: 60vh;
+      padding: 7% 10%;
+    }
+
+    section:nth-child(3) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      min-height: 95vh;
+    }
+
+    section:nth-child(2) > div,
+    section:nth-child(3) > div {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 50%;
+    }
+
+    section:nth-child(2) > div img,
+    section:nth-child(3) > div img {
+      height: 70vh;
+      width: 70%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    section:nth-child(2) h2,
+    section:nth-child(3) h2 {
+      text-align: center;
+      color: var(--primary-color);
+      font-size: 50px;
+    }
+
+    section:nth-child(3) > div > img {
+      max-width: 75%;
+      height: 75vh;
+    }
+
+    .about-content {
+      padding: 0 50px;
+      margin-top: 50px;
+    }
+
+    header {
+      position: relative;
+      top: 0;
+      width: 100%;
+      padding: 30px 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    label {
+      display: none;
+    }
+
+    header .logo {
+      position: relative;
+      font-size: 30px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    header .navigation a {
+      font-size: 18px;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 2px 15px;
+      border-radius: 20px;
+      transition: 0.3s;
+      transition-property: background;
+    }
+
+    header .navigation a:not(:last-child) {
+      margin-right: 30px;
+    }
+
+    header .navigation a:hover {
+      background: #333;
+    }
+
+    .content {
+      max-width: 650px;
+      margin: 60px 100px;
+    }
+
+    .content .info h2 {
+      color: var(--primary-color);
+      font-size: 55px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 2px;
+      line-height: 60px;
+      margin-bottom: 30px;
+    }
+
+    .content .info h2 span {
+      color: #fff;
+      font-size: 50px;
+      font-weight: 600;
+    }
+
+    .content .info p {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 40px;
+    }
+
+    .content .info-btn {
+      color: #fff;
+      background: var(--primary-color);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: 0.3s;
+      transition-property: background;
+    }
+
+    .content .info-btn:hover {
+      background: #0c4f60;
+    }
+
+    .media-icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+    }
+
+    .media-icons a {
+      position: relative;
+      color: #111;
+      font-size: 25px;
+      transition: 0.3s;
+      transition-property: transform;
+    }
+
+    .media-icons a:not(:last-child) {
+      margin-right: 60px;
+    }
+
+    .media-icons a:hover {
+      transform: scale(1.5);
+    }
+
+    #check {
+      z-index: 3;
+      display: none;
+    }
+
+    footer {
+      background-color: #ccc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    footer p {
+      margin-bottom: 15px;
+    }
+
+    /* Responsive CSS */
+
+    @media (max-width: 960px) {
+      header .navigation {
+        display: none;
+      }
+
+      label {
+        display: block;
+        font-size: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+        transition-property: color;
+      }
+
+      label:hover {
+        color: #fff;
+      }
+
+      label .close-btn {
+        display: none;
+      }
+
+      #check:checked ~ header .navigation {
+        z-index: 2;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(114, 223, 255, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #check:checked ~ header .navigation a {
+        font-weight: 700;
+        margin-right: 0;
+        margin-bottom: 50px;
+        letter-spacing: 2px;
+      }
+
+      #check:checked ~ header label .close-btn {
+        z-index: 2;
+        position: fixed;
+        display: block;
+      }
+
+      #check:checked ~ header label .menu-btn {
+        display: none;
+      }
+
+      label .menu-btn {
+        position: absolute;
+      }
+
+      header .logo {
+        position: absolute;
+        bottom: -6px;
+      }
+
+      .content {
+        margin: 10% 35px;
+      }
+
+      .content .info h2 {
+        font-size: 45px;
+        line-height: 50px;
+      }
+
+      .content .info h2 span {
+        font-size: 40px;
+        font-weight: 600;
+      }
+
+      .content .info p {
+        font-size: 15px;
+      }
+
+      section:nth-child(2) {
+        padding: 10% 35px;
+      }
+
+      section:nth-child(2) p,
+      section:nth-child(3) p {
+        font-size: 15px;
+      }
+
+      section:nth-child(3) {
+        flex-direction: column;
+      }
+
+      section:nth-child(3) div {
+        width: 100vw;
+        padding: 10% 35px;
+      }
+
+      section:nth-child(3) div img {
+        height: auto;
+        width: auto;
+        max-height: 50vh;
+        max-width: 100%;
+      }
+
+      .about-content {
+        padding: unset;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .content .info h2 {
+        font-size: 35px;
+        line-height: 40px;
+      }
+
+      .content .info h2 span {
+        font-size: 30px;
+        font-weight: 600;
+      }
+
+      .content .info p {
+        font-size: 14px;
+      }
+    }
+  </style>
+  <body>
+
+    <section>
+      <input type="checkbox" id="check">
+      <header>
+        </div>
+        <h2><a href="#" class="logo">WEATHER NOW</a></h2>
+        <div class="navigation">
+          <a href="#">Home</a>
+          <a href="#about">About Rainy Brain</a>
+          <a href="#info">Developer</a>
+          <a href="/predict">Predictor</a>
+        </div>
+        <label for="check">
+        <i class="fas fa-bars menu-btn"></i>
+        <i class="fas fa-times close-btn"></i>
+        </label>
+      </header>
+      <div class="content" style="margin-top: 8%;">
+        <div class="info">
+          <h2>Plant Trees <br><span>Save Rain</span></h2>
+          <p> "Plant trees to bring the rains and get rid of the summer's heat.” - Trees help reduce and moderate the temperature and climate, which is why it is so important that we have more of them</p>
+          <a href="#about" class="info-btn">More info</a>
+        </div>
+      </div>
+      <div class="media-icons">
+        <a href="https://www.linkedin.com/in/kunle-olanipekun-555764225/"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/kunle001"><i class="fab fa-github"></i></a>
+        <a href="https://twitter.com/bra_niac"><i class="fab fa-twitter"></i></a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About Weather Now</h2>
+      <p class="about-content" style="text-align: center;">Weather Now is a web app that uses a Machine Learning model to predict whether it will rain the next day, based on the Rain Prediction in Australia dataset. The codes for this project can be checked in the developer's github repository. It is worth noting that over 80% of Australia receives less than 600 mm of annual rainfall, which is the lowest among all continents except for Antarctica. For instance, the annual rainfall in a place inland near Lake Eyre is only 81 mm, and the average annual rainfall in the Australian desert ranges from 81 to 250 mm. Thunderstorms are relatively common in the desert, with an average of 15 to 20 thunderstorms per year.
+        Southern Australia usually experiences westerly winds and cold fronts with rain during winter 
+        when high-pressure systems move towards northern Australia. The coast has mild temperatures all year
+        round, and summers are typically dry and hot with coastal sea breezes. During prolonged dry spells, 
+        hot and dry winds from the interior can cause bushfires in some southern and eastern states, especially
+        Victoria and New South Wales. Conversely, northern Australia experiences a wet summer due to the monsoon. 
+        Humid north-westerly winds bring showers and thunderstorms during "the wet," which typically runs from October
+        to April. Occasionally, tropical cyclones can bring heavy rainfall to tropical coastal regions, which can
+         also reach further inland.
+      </p>
+    </section>
+
+    <section id="info">
+      <div>
+        <img src="https://media.licdn.com/dms/image/D4D03AQF0iCXEfjcVJw/profile-displayphoto-shrink_400_400/0/1673561834137?e=1684368000&v=beta&t=1T7uoaDA7UW33JdSVqbOHuDXj07ZbY7ecStXxA0pXKc" alt="Adekunle">
+      </div>
+      <div>
+        <h2>Developer</h2>
+        <p class="about-content">
+          Hi, I am Olanipekun Adekunle OLuwole.
+          Adekunle is a software engineer and data scientist who is passionate about building innovative solutions and keeping up-to-date with the latest technologies. He has experience in machine learning and software engineering, with skills in programming languages such as Python and JavaScript, frameworks and libraries such as TensorFlow, Sklearn Libraries, Keras, PyTorch, Flask, React, Django, node.js, and Express.js, and tools such as Git, Jupyter Notebook, VS Code, and Android Studio.
+          Adekunle has worked on several projects in natural language processing, machine learning, back-end development, and data science. He has built a card fraud detector model, functioning REST APIs such as an apartment finding and rentage API and an online language school, and collaborated with a team to create a dynamic platform for recruiting and mentoring individuals interested in the tech industry. He has also mentored students in data science courses and emphasized practical application in teaching.
+          Adekunle is eager to collaborate on projects that bring together machine learning, software engineering, and data science and can be reached through LinkedIn or email. <bold>adekunle.olanipekun.ko@gmail.com</bold>
+          </p>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Developed with ❤️ by Adekunle 
+      </p> 
+      <div class="media-icons">
+        <a href="https://www.linkedin.com/in/kunle-olanipekun-555764225"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/kunle001"><i class="fab fa-github"></i></a>
+        <a href="https://twitter.com/bra_niac"><i class="fab fa-twitter"></i></a>
+      </div>
+    </footer>
+
+  </body>
