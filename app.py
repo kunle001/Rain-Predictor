@@ -2,8 +2,6 @@ from flask import Flask,render_template,url_for,request,jsonify
 from flask_cors import cross_origin
 import pandas as pd
 import numpy as np
-import datetime
-import pickle
 from joblib import load
 
 
@@ -11,6 +9,7 @@ from joblib import load
 
 app = Flask(__name__, template_folder="template")
 model = load('my_rain_model.joblib')
+targetEncoder= load('encoder.joblib')
     
 print("Model Loaded")
 
@@ -28,12 +27,14 @@ def predict():
 		data= []
 		for key in request.form:
 				form_data[key] = request.form[key];
-				data.append(form_data)
-		data= pd.DataFrame(data, columns= ['Location', 'MinTemp', 'MaxTemp', 'Rainfall', 'WindGustDir',
-       'WindGustSpeed', 'WindDir9am', 'WindDir3pm', 'WindSpeed9am',
-       'WindSpeed3pm', 'Humidity9am', 'Humidity3pm', 'Pressure9am',
-       'Pressure3pm', 'Temp9am', 'Temp3pm', 'Month', 'Day', 'RainToday_Yes'])
-		data['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm']= targetEncoder.transform(['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm'])
+		data.append(form_data)
+		data= pd.DataFrame(data)
+		data[['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm']] = targetEncoder.transform(data[['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm']])
+		data= data.reindex(columns= ['Location', 'MinTemp', 'MaxTemp', 'Rainfall', 'WindGustDir',
+															'WindGustSpeed', 'WindDir9am', 'WindDir3pm', 'WindSpeed9am',
+															'WindSpeed3pm', 'Humidity9am', 'Humidity3pm', 'Pressure9am',
+															'Pressure3pm', 'Temp9am', 'Temp3pm', 'Month', 'Day', 'RainToday_Yes'])
+		print(data)
 		
 
 		pred = model.predict(data)
