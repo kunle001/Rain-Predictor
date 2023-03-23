@@ -10,3 +10,4 @@ scipy
 flask_cors
 catboost
 category_encoders
+gunicorn
