@@ -5,6 +5,7 @@ import numpy as np
 from joblib import load
 
 
+name= "www"
 
 
 app = Flask(__name__, template_folder="template")
