@@ -7,5 +7,4 @@ seaborn
 scikit-learn
 gunicorn
 scipy
-flask_cors
 catboost
