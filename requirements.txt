@@ -1,4 +1,4 @@
-Python==3.11
+python-3.10.10
 Flask
 pandas
 numpy
