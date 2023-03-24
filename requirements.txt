@@ -8,5 +8,5 @@ scikit-learn
 gunicorn
 scipy
 flask_cors
-category_encoders
+category_encoders>=2.6.0,<3.0.0
 catboost
