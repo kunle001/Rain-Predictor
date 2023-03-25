@@ -29,16 +29,14 @@ def predict():
 				form_data[key] = request.form[key];
 		data.append(form_data)
 		data= pd.DataFrame(data)
+		# print(data)
 		data[['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm']] = targetEncoder.transform(data[['Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm']])
 		data= data.reindex(columns= ['Location', 'MinTemp', 'MaxTemp', 'Rainfall', 'WindGustDir',
 															'WindGustSpeed', 'WindDir9am', 'WindDir3pm', 'WindSpeed9am',
 															'WindSpeed3pm', 'Humidity9am', 'Humidity3pm', 'Pressure9am',
 															'Pressure3pm', 'Temp9am', 'Temp3pm', 'Month', 'Day', 'RainToday_Yes'])
-		print(data)
-		
 
 		pred = model.predict(data)
-		print(pred)
 		output = pred
 		if output == 0:
 			return render_template("after_sunny.html")

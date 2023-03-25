@@ -2,3 +2,4 @@ weatherAUS.csv
 .ipynb_checkpoints
 virtual
 myenv
+__test__/
